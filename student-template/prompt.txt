@@ -2,3 +2,95 @@
 
 
 ---
+Create a React component named `SupplierPerformance` for an ERP dashboard.
+
+### Component Requirements
+
+Build a reusable functional React component called `SupplierPerformance`.
+
+### Expected Data / Props
+
+The component should accept supplier performance data through a prop named `suppliers`.
+
+Expected structure:
+
+```js
+[
+  {
+    supplierId: "SUP-001",
+    supplierName: "ABC Supplies",
+    onTimeDeliveryPercentage: 95,
+    averageResponseTimeHours: 4.5
+  },
+  {
+    supplierId: "SUP-002",
+    supplierName: "XYZ Manufacturing",
+    onTimeDeliveryPercentage: 78,
+    averageResponseTimeHours: 12
+  }
+]
+```
+
+The component should also be able to fetch the same structure from an API if an API-based implementation is preferred. If fetching data, use:
+
+```text
+GET /api/suppliers/performance
+```
+
+Handle loading and error states gracefully.
+
+### UI Layout
+
+Create a clean, responsive "Supplier Performance" dashboard widget.
+
+Use a **table layout** because multiple suppliers need to be compared.
+
+Display the following columns:
+
+1. **Supplier Name**
+2. **On-Time Delivery**
+3. **Average Response Time**
+4. **Status**
+
+For each supplier:
+
+* Display `onTimeDeliveryPercentage` as a percentage, such as `95%`.
+* Display `averageResponseTimeHours` with the unit `hours`, such as `4.5 hours`.
+* Display the calculated status using a colored badge.
+
+Add a widget heading:
+
+**Supplier Performance**
+
+Make the table responsive and visually consistent with a modern ERP dashboard. Use semantic HTML and accessible table headers. Avoid unnecessary dependencies.
+
+### Color-Coding Logic
+
+Calculate the supplier status using the following rules:
+
+* **Green / Good:** on-time delivery percentage is `>= 90%` AND average response time is `<= 8 hours`.
+* **Yellow / Warning:** on-time delivery percentage is between `75%` and `89%`, OR average response time is between `8` and `24 hours`.
+* **Red / Poor:** on-time delivery percentage is `< 75%`, OR average response time is `> 24 hours`.
+
+If multiple conditions produce different statuses, use the **worst status**. For example, a supplier with 95% on-time delivery but a 30-hour response time should be **Red**, not Green.
+
+Use:
+
+* Green badge/background for **Good**
+* Yellow badge/background for **Warning**
+* Red badge/background for **Poor**
+
+Ensure text remains readable against the background and do not rely on color alone; include the status text (`Good`, `Warning`, or `Poor`) inside the badge.
+
+### Technical Requirements
+
+* Use a functional React component.
+* Use props rather than hardcoded supplier data.
+* Use `.map()` to render supplier rows.
+* Use a stable supplier identifier such as `supplierId` as the React `key`.
+* Keep status calculation in a separate helper function such as `getSupplierStatus()`.
+* Handle an empty `suppliers` array by displaying:
+  `No supplier performance data available.`
+* Include clear, maintainable JSX and CSS/class names.
+* Return the complete `SupplierPerformance` component and any required CSS.
+* Do not use mock data inside the final component.
